@@ -1,11 +1,8 @@
-// index.js
-// const defaultAvatarUrl = 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0'
-
 Page({
   data: {
     imagePath: '',
     rgbValues: '',
-    concentration: ''  // 用于存储预测的浓度值
+    absorbance: ''// 用于存储预测的吸光度值
   },
   chooseImage() {
     wx.chooseImage({
@@ -16,7 +13,7 @@ Page({
         this.setData({
           imagePath: res.tempFilePaths[0],
           rgbValues: '',
-          concentration: ''
+          absorbance: ''
         });
         this.uploadImage(res.tempFilePaths[0]);
       }
@@ -24,10 +21,10 @@ Page({
   },
   uploadImage(filePath) {
     wx.uploadFile({
-      url: 'https://4138-2408-8226-250-fc0-6811-be2e-28b-392e.ngrok-free.app/upload', // 后端的Flask服务器地址，使用ngrok提供的公网地址
+      url: 'https://4138-2408-8226-250-fc0-6811-be2e-28b-392e.ngrok-free.app/upload', 
       filePath: filePath,
       name: 'file',
-      method: 'POST',
+      method: 'POST', 
       success: (res) => {
         console.log('Server response:', res);
         const data = JSON.parse(res.data);
@@ -38,12 +35,12 @@ Page({
           });
         } else {
           wx.showToast({
-            title: `预测浓度: ${data.concentration}`,
+            title: `预测吸光度: ${data.absorbance}`,
             icon: 'none'
           });
           const newRecord = {
-            rgbValues: `R: ${data.rgb.red}, G: ${data.rgb.green}, B: ${data.rgb.blue}`,
-            concentration: data.concentration
+            absorbance: data.absorbance, // 假设后端返回的吸光度数据
+            rgbValues: `R: ${data.rgb.red}, G: ${data.rgb.green}, B: ${data.rgb.blue}`
           };
           this.setData(newRecord);
 

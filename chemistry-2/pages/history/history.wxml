@@ -4,7 +4,9 @@
     <text class="title-text">历史记录</text>
   </view>
   <view wx:for="{{history}}" wx:key="index" class="record">
+    <text>浓度: {{item.concentration}}</text>
     <text>RGB值: {{item.rgbValues}}</text>
     <text>预测吸光度: {{item.absorbance}}</text>
   </view>
 </view>
+

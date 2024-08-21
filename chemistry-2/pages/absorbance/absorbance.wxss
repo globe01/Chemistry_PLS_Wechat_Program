@@ -1,0 +1,48 @@
+/** absorbance.wxss **/
+page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.scrollarea {
+  flex: 1;
+  overflow-y: hidden;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.title-text {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 0 20px;
+}
+
+.label {
+  font-size: 18px;
+  width: 120px;
+}
+
+.button {
+  margin-left: 10px;
+}
+
+.image-preview {
+  margin-top: 10px;
+  max-width: 100%;
+  height: auto;
+}
+
+.value {
+  font-size: 18px;
+  margin-left: 10px;
+}

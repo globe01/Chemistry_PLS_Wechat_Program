@@ -1,6 +1,8 @@
 {
   "pages": [
+    "pages/home/home",
     "pages/index/index",
+    "pages/absorbance/absorbance",
     "pages/history/history"
   ],
   "window": {
@@ -14,9 +16,15 @@
     "list": [
       {
         "pagePath": "pages/index/index",
-        "text": "预测",
-        "iconPath": "images/predict.png",
-        "selectedIconPath": "images/predict_selected.png"
+        "text": "浓度",
+        "iconPath": "images/concentration.png",
+        "selectedIconPath": "images/concentration_selected.png"
+      },
+      {
+        "pagePath": "pages/absorbance/absorbance",
+        "text": "吸光度",
+        "iconPath": "images/absorbance.png",
+        "selectedIconPath": "images/absorbance_selected.png"
       },
       {
         "pagePath": "pages/history/history",

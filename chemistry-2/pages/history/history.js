@@ -8,3 +8,4 @@ Page({
     this.setData({ history });
   }
 });
+
