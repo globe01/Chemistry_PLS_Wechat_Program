@@ -1,8 +1,7 @@
 Page({
   data: {
     imagePath: '',
-    rgbValues: '',
-    absorbance: ''// 用于存储预测的吸光度值
+    absorbance: '' // 用于存储预测的吸光度值
   },
   chooseImage() {
     wx.chooseImage({
@@ -12,7 +11,6 @@ Page({
       success: (res) => {
         this.setData({
           imagePath: res.tempFilePaths[0],
-          rgbValues: '',
           absorbance: ''
         });
         this.uploadImage(res.tempFilePaths[0]);
@@ -24,7 +22,7 @@ Page({
       url: 'https://4138-2408-8226-250-fc0-6811-be2e-28b-392e.ngrok-free.app/upload', 
       filePath: filePath,
       name: 'file',
-      method: 'POST', 
+      method: 'POST',
       success: (res) => {
         console.log('Server response:', res);
         const data = JSON.parse(res.data);
@@ -38,9 +36,12 @@ Page({
             title: `预测吸光度: ${data.absorbance}`,
             icon: 'none'
           });
+
+          // 记录历史数据，保留RGB值小数点后三位
+          const rgbFormatted = `R: ${data.rgb.red.toFixed(3)}, G: ${data.rgb.green.toFixed(3)}, B: ${data.rgb.blue.toFixed(3)}`;
           const newRecord = {
-            absorbance: data.absorbance, // 假设后端返回的吸光度数据
-            rgbValues: `R: ${data.rgb.red}, G: ${data.rgb.green}, B: ${data.rgb.blue}`
+            absorbance: data.absorbance,
+            rgbValues: rgbFormatted
           };
           this.setData(newRecord);
 

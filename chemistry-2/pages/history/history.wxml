@@ -1,12 +1,12 @@
-<!--pages/history/history.wxml-->
-<view class="container">
-  <view class="title">
-    <text class="title-text">历史记录</text>
+<scroll-view class="scrollarea" scroll-y type="list">
+  <view class="container">
+    <view class="title">
+      <text class="title-text">历史记录</text>
+    </view>
+    <view wx:for="{{history}}" wx:key="index" class="card record">
+      <text class="label">浓度: {{item.concentration}}</text>
+      <text class="label">RGB值: {{item.rgbValues}}</text>
+      <text class="label">预测吸光度: {{item.absorbance}}</text>
+    </view>
   </view>
-  <view wx:for="{{history}}" wx:key="index" class="record">
-    <text>浓度: {{item.concentration}}</text>
-    <text>RGB值: {{item.rgbValues}}</text>
-    <text>预测吸光度: {{item.absorbance}}</text>
-  </view>
-</view>
-
+</scroll-view>

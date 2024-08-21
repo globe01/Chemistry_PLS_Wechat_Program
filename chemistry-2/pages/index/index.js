@@ -4,7 +4,6 @@
 Page({
   data: {
     imagePath: '',
-    rgbValues: '',
     concentration: ''  // 用于存储预测的浓度值
   },
   chooseImage() {
@@ -15,7 +14,6 @@ Page({
       success: (res) => {
         this.setData({
           imagePath: res.tempFilePaths[0],
-          rgbValues: '',
           concentration: ''
         });
         this.uploadImage(res.tempFilePaths[0]);
@@ -24,7 +22,7 @@ Page({
   },
   uploadImage(filePath) {
     wx.uploadFile({
-      url: 'https://4138-2408-8226-250-fc0-6811-be2e-28b-392e.ngrok-free.app/upload', // 后端的Flask服务器地址，使用ngrok提供的公网地址
+      url: 'https://4138-2408-8226-250-fc0-6811-be2e-28b-392e.ngrok-free.app/upload', // Flask服务器地址
       filePath: filePath,
       name: 'file',
       method: 'POST',
@@ -41,9 +39,12 @@ Page({
             title: `预测浓度: ${data.concentration}`,
             icon: 'none'
           });
+
+          // 记录历史数据，保留RGB值小数点后三位
+          const rgbFormatted = `R: ${data.rgb.red.toFixed(3)}, G: ${data.rgb.green.toFixed(3)}, B: ${data.rgb.blue.toFixed(3)}`;
           const newRecord = {
-            rgbValues: `R: ${data.rgb.red}, G: ${data.rgb.green}, B: ${data.rgb.blue}`,
-            concentration: data.concentration
+            concentration: data.concentration,
+            rgbValues: rgbFormatted
           };
           this.setData(newRecord);
 

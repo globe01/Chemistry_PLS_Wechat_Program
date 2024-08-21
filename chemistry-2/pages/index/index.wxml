@@ -11,10 +11,6 @@
       <image class="image-preview" src="{{imagePath}}" mode="widthFix"></image>
     </view>
     <view class="card">
-      <text class="label">RGB值：</text>
-      <text class="value">{{rgbValues}}</text>
-    </view>
-    <view class="card">
       <text class="label">预测浓度：</text>
       <text class="value">{{concentration}}</text>
     </view>
