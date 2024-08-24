@@ -1,0 +1,69 @@
+.container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.6); /* 更深的半透明背景层 */
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+}
+
+.title {
+  margin-bottom: 30px;
+}
+
+.title-text {
+  font-size: 30px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* 添加阴影效果 */
+}
+
+.button {
+  font-size: 20px;
+  padding: 15px 30px;
+  background: linear-gradient(135deg, #667eea, #764ba2); /* 蓝紫色渐变 */
+  color: white;
+  border: none;
+  border-radius: 30px; /* 圆角按钮 */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* 按钮阴影 */
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.button::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: rgba(255, 255, 255, 0.2); /* 光泽效果 */
+  transform: rotate(45deg);
+  transition: all 0.5s ease;
+}
+
+.button:hover::before {
+  top: -20%;
+  left: -20%;
+}
+
+.button:active {
+  transform: scale(0.95); /* 按下时缩小 */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* 减少阴影 */
+}

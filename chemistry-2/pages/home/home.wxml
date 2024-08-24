@@ -1,0 +1,9 @@
+<view class="container">
+  <image class="background" src="../../images/background.png" mode="aspectFill"></image>
+  <view class="overlay">
+    <view class="title">
+      <text class="title-text">欢迎使用预测小程序</text>
+    </view>
+    <button class="button" bindtap="goToPrediction">开始预测</button>
+  </view>
+</view>
