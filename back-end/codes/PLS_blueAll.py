@@ -105,11 +105,11 @@ print(f'浓度 - 训练集 R2: {r2_train_concentration:.3f}, RMSE: {rmse_train_c
 print(f'浓度 - 验证集 R2: {r2_val_concentration:.3f}, RMSE: {rmse_val_concentration:.3f}')
 
 # 保存模型和标准化器
-joblib.dump(pls_absorbance, 'pls_absorbance_model.pkl')
-joblib.dump(pls_concentration, 'pls_concentration_model.pkl')
-joblib.dump(scaler_X, 'scaler_X.pkl')
-joblib.dump(scaler_y_absorbance, 'scaler_y_absorbance.pkl')
-joblib.dump(scaler_y_concentration, 'scaler_y_concentration.pkl')
+joblib.dump(pls_absorbance, 'blue_pls_absorbance_model.pkl')
+joblib.dump(pls_concentration, 'blue_pls_concentration_model.pkl')
+joblib.dump(scaler_X, 'blue_scaler_X.pkl')
+joblib.dump(scaler_y_absorbance, 'blue_scaler_y_absorbance.pkl')
+joblib.dump(scaler_y_concentration, 'blue_scaler_y_concentration.pkl')
 
 # 绘制预测结果图
 plt.figure(figsize=(18, 6))
