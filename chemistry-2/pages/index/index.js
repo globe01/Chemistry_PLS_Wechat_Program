@@ -22,7 +22,7 @@ Page({
   },
   uploadImage(filePath) {
     wx.uploadFile({
-      url: 'https://6a51-111-53-247-244.ngrok-free.app/upload',
+      url: 'https://chemistrypls.com/upload',
       filePath: filePath,
       name: 'file',
       method: 'POST',
@@ -60,7 +60,7 @@ Page({
 
           // 下载处理后的图像并显示
           wx.downloadFile({
-            url: `https://6a51-111-53-247-244.ngrok-free.app/processed_image/${data.processed_image}`,
+            url: `https://chemistrypls.com/processed_image/${data.processed_image}`,
             success: (downloadRes) => {
               if (downloadRes.statusCode === 200) {
                 this.setData({

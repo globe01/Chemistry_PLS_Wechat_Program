@@ -63,6 +63,12 @@ def determine_color(rgb):
     else:
         return 'blue'
 
+
+@app.route('/')
+def home():
+    return "Welcome to Chemistry PLS App!"
+
+
 @app.route('/upload', methods=['POST'])
 def upload_file():
     print("Received request:", request.method)

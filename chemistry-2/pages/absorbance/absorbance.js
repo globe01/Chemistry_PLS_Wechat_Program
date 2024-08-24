@@ -19,7 +19,7 @@ Page({
   },
   uploadImage(filePath) {
     wx.uploadFile({
-      url: 'https://6a51-111-53-247-244.ngrok-free.app/upload', 
+      url: 'https://chemistrypls.com/upload', 
       filePath: filePath,
       name: 'file',
       method: 'POST',
