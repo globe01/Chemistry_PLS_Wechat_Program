@@ -1,11 +1,8 @@
 // index.js
-// const defaultAvatarUrl = 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0'
-
-
-// index.js
 Page({
   data: {
     imagePath: '',
+    processedImagePath: '',  // 用于存储带红框的图像路径
     concentration: ''  // 用于存储预测的浓度值
   },
   chooseImage() {
@@ -16,7 +13,8 @@ Page({
       success: (res) => {
         this.setData({
           imagePath: res.tempFilePaths[0],
-          concentration: ''
+          concentration: '',
+          processedImagePath: ''  // 重置处理后图像路径
         });
         this.uploadImage(res.tempFilePaths[0]);
       }
@@ -59,6 +57,21 @@ Page({
           let history = wx.getStorageSync('history') || [];
           history.unshift(newRecord); // 添加到数组开头
           wx.setStorageSync('history', history);
+
+          // 下载处理后的图像并显示
+          wx.downloadFile({
+            url: `https://6a51-111-53-247-244.ngrok-free.app/processed_image/${data.processed_image}`,
+            success: (downloadRes) => {
+              if (downloadRes.statusCode === 200) {
+                this.setData({
+                  processedImagePath: downloadRes.tempFilePath  // 临时文件路径
+                });
+              }
+            },
+            fail: (err) => {
+              console.error('Failed to download processed image:', err);
+            }
+          });
         }
       },
       fail: (err) => {
@@ -71,5 +84,3 @@ Page({
     });
   }
 });
-
-

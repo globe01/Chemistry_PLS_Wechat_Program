@@ -7,6 +7,7 @@
       <text class="label">图片：</text>
       <button class="button" bindtap="chooseImage">拍照/选择图片</button>
       <image class="image-preview" src="{{imagePath}}" mode="widthFix" wx:if="{{imagePath}}"></image>
+      <image class="image-preview" src="{{processedImagePath}}" mode="widthFix" wx:if="{{processedImagePath}}"></image>
     </view>
     <view class="card result-card">
       <text class="label">预测浓度：</text>

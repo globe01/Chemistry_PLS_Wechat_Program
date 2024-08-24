@@ -31,6 +31,7 @@
   font-weight: 500;
   color: #666;
   margin-bottom: 10px;
+  display: block; /* 确保每个label元素独占一行 */
 }
 
 .value {
