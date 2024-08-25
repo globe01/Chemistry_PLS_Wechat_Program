@@ -75,7 +75,7 @@ Chemistry PLS 微信小程序通过分析用户上传的图片，提取出图片
 
 ## 许可证
 
-- 域名chemistrypls.com, www.chemistrypls.com（1年-75元）
+- 域名（1年-75元）：chemistrypls.com, www.chemistrypls.com
 
   ![image-20240825170853393](assets/image-20240825170853393.png)
 
