@@ -22,7 +22,7 @@ Page({
   },
   uploadImage(filePath) {
     wx.uploadFile({
-      url: 'https://chemistrypls.com/upload',
+      url: 'https://chemistryplsmodel.com/upload',
       filePath: filePath,
       name: 'file',
       method: 'POST',
@@ -60,7 +60,7 @@ Page({
 
           // 下载处理后的图像并显示
           wx.downloadFile({
-            url: `https://chemistrypls.com/processed_image/${data.processed_image}`,
+            url: `https://chemistryplsmodel.com/processed_image/${data.processed_image}`,
             success: (downloadRes) => {
               if (downloadRes.statusCode === 200) {
                 this.setData({

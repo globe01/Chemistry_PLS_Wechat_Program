@@ -19,7 +19,7 @@ Page({
   },
   uploadImage(filePath) {
     wx.uploadFile({
-      url: 'https://chemistrypls.com/upload', 
+      url: 'https://chemistryplsmodel.com/upload', 
       filePath: filePath,
       name: 'file',
       method: 'POST',

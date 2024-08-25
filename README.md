@@ -40,9 +40,9 @@ Chemistry PLS 微信小程序通过分析用户上传的图片，提取出图片
 2. **进入项目目录并创建虚拟环境**:
    
    ```bash
-   cd Chemistry_PLS_Wechat_Program
+   cd /home/lighthouse/myenv/codes
    python3 -m venv myenv
-   source myenv/bin/activate
+   source /home/lighthouse/myenv/bin/activate  # 激活虚拟环境
    ```
    
 3. **安装依赖**:
@@ -52,7 +52,7 @@ Chemistry PLS 微信小程序通过分析用户上传的图片，提取出图片
 
 4. **启动Flask服务器**:
    ```bash
-   gunicorn -w 4 -b 0.0.0.0:5000 app:app
+   nohup gunicorn -w 4 -b 0.0.0.0:5000 app:app &
    ```
 
 ### 微信小程序设置
@@ -90,3 +90,7 @@ Chemistry PLS 微信小程序通过分析用户上传的图片，提取出图片
   ![image-20240825171033166](assets/image-20240825171033166.png)
 
 - 微信认证（30元）
+
+
+
+- 出bug了。。。来不及了。。最后实在没办法又花了646.9+237.6=884.5重新买一套（这次的轻量应用服务器是半年）
