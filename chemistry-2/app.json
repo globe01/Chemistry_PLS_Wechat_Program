@@ -8,7 +8,7 @@
   "window": {
     "navigationBarBackgroundColor": "#ffffff",
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "化学实验数字化预测小程序",
+    "navigationBarTitleText": "比色数字化检测小程序",
     "backgroundColor": "#eeeeee",
     "backgroundTextStyle": "light"
   },

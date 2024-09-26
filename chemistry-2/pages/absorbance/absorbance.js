@@ -1,7 +1,7 @@
 Page({
   data: {
     imagePath: '',
-    absorbance: '' // 用于存储预测的吸光度值
+    absorbance: '' // 用于存储检测的吸光度值
   },
   chooseImage() {
     wx.chooseImage({
@@ -37,7 +37,7 @@ Page({
         } else {
           const formattedAbsorbance = parseFloat(data.absorbance).toFixed(3);  // 保留三位小数
           wx.showToast({
-            title: `预测吸光度: ${formattedAbsorbance}`,
+            title: `检测吸光度: ${formattedAbsorbance}`,
             icon: 'none'
           });
 

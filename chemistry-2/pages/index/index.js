@@ -3,7 +3,7 @@ Page({
   data: {
     imagePath: '',
     processedImagePath: '',  // 用于存储带红框的图像路径
-    concentration: ''  // 用于存储预测的浓度值
+    concentration: ''  // 用于存储检测的浓度值
   },
   chooseImage() {
     wx.chooseImage({
@@ -39,9 +39,9 @@ Page({
           });
         } else {
           const formattedConcentration = parseFloat(data.concentration).toFixed(3);  // 保留三位小数
-          const concentrationWithUnit = `${formattedConcentration} mmol/L`;  // 添加单位
+          const concentrationWithUnit = `${formattedConcentration} mg/L`;  // 添加单位
           wx.showToast({
-            title: `预测浓度: ${concentrationWithUnit}`,
+            title: `检测浓度: ${concentrationWithUnit}`,
             icon: 'none'
           });
 

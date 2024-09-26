@@ -6,7 +6,7 @@
     <view wx:for="{{history}}" wx:key="index" class="card record">
       <text class="label">浓度: {{item.concentration}}</text>
       <text class="label">RGB值: {{item.rgbValues}}</text>
-      <text class="label">预测吸光度: {{item.absorbance}}</text>
+      <text class="label">检测吸光度: {{item.absorbance}}</text>
     </view>
   </view>
 </scroll-view>

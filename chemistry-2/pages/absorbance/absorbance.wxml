@@ -1,7 +1,7 @@
 <scroll-view class="scrollarea" scroll-y type="list">
   <view class="container">
     <view class="title">
-      <text class="title-text">吸光度预测</text>
+      <text class="title-text">吸光度检测</text>
     </view>
     <view class="card image-card">
       <text class="label">图片：</text>
@@ -9,7 +9,7 @@
       <image class="image-preview" src="{{imagePath}}" mode="widthFix" wx:if="{{imagePath}}"></image>
     </view>
     <view class="card result-card">
-      <text class="label">预测吸光度：</text>
+      <text class="label">检测吸光度：</text>
       <text class="value">{{absorbance}}</text>
     </view>
   </view>

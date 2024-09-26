@@ -1,7 +1,7 @@
 <scroll-view class="scrollarea" scroll-y type="list">
   <view class="container">
     <view class="title">
-      <text class="title-text">浓度预测</text>
+      <text class="title-text">浓度检测</text>
     </view>
     <view class="card image-card">
       <text class="label">图片：</text>
@@ -10,7 +10,7 @@
       <image class="image-preview" src="{{processedImagePath}}" mode="widthFix" wx:if="{{processedImagePath}}"></image>
     </view>
     <view class="card result-card">
-      <text class="label">预测浓度：</text>
+      <text class="label">检测浓度：</text>
       <text class="value">{{concentration}}</text>
     </view>
   </view>

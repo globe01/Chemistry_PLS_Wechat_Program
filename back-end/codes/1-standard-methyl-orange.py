@@ -3,7 +3,7 @@ import cv2  # 用OpenCV库
 import pandas as pd
 
 # 定义图像文件夹路径
-image_dir = '../Data/1-standard-methyl-orange'
+image_dir = '../newData/purple/orange/Ag'
 
 # 获取文件夹中的所有图像文件
 image_files = [f for f in os.listdir(image_dir) if f.endswith('.png')]
@@ -41,7 +41,7 @@ df_results = pd.DataFrame(results, columns=['Absorbance', 'Red', 'Green', 'Blue'
 df_results = df_results.sort_values(by='Absorbance')
 
 # 保存结果为Excel文件
-output_path = '../Data/1-standard-methyl-orange/output_rgb_values.xlsx'  # 保存到原文件夹之下
+output_path = '../newData/purple/orange/Ag/orange-Ag-origin.xlsx'  # 保存到原文件夹之下
 
 df_results.to_excel(output_path, index=False)
 
