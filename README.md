@@ -23,6 +23,34 @@ ICP备案/许可号：[津ICP备2024023054号-1X](https://beian.miit.gov.cn/)）
 
 Chemistry PLS 微信小程序通过分析用户上传的图片，提取出图片中心区域的RGB值，利用PLS回归模型识别出化学试剂的浓度和吸光度。前端由微信小程序实现，用户可以拍摄或上传图片，后端服务器基于PLS回归模型进行分析并返回结果。
 
+小程序二维码如下：
+
+<img src="README.assets/image-20241118195428499.png" alt="image-20241118195428499" style="zoom:50%;" />
+
+## 页面效果
+
+### 0 进入页面
+
+<img src="README.assets/0.jpg" alt="0" style="zoom: 15%;" />
+
+### 1 浓度检测页面
+
+<img src="README.assets/1.jpg" alt="1" style="zoom:15%;" />
+
+### 2 吸光度检测页面
+
+<img src="README.assets/2.jpg" alt="2" style="zoom:15%;" />
+
+### 3 历史记录页面
+
+<img src="README.assets/3.jpg" alt="3" style="zoom:15%;" />
+
+### 4 检测结果展示
+
+<img src="README.assets/4.jpg" alt="4" style="zoom:15%;" />
+
+
+
 ## 使用的技术
 
 - **前端**: 微信小程序
@@ -31,9 +59,11 @@ Chemistry PLS 微信小程序通过分析用户上传的图片，提取出图片
 - **服务器**: Nginx, Gunicorn
 - **其他**: 腾讯云域名, SSL证书
 
+
+
 ## 安装和设置
 
-### 后端腾讯云轻量服务器设置
+### 一、后端腾讯云轻量服务器设置
 
 1. **更新系统包**：
 
@@ -166,7 +196,7 @@ Chemistry PLS 微信小程序通过分析用户上传的图片，提取出图片
    nslookup chemistryplsmodel.com
    ```
 
-9. 启动`gunicorn`：
+9. **启动`gunicorn`**：
 
    ```bash
    nohup gunicorn -w 4 -b 127.0.0.1:5000 app:app &
@@ -176,11 +206,13 @@ Chemistry PLS 微信小程序通过分析用户上传的图片，提取出图片
 
 
 
-### 微信小程序设置
+### 二、微信小程序设置
 
 1. 在微信开发者工具中导入小程序项目。
 2. 配置域名为服务器域名（必须是HTTPS）。
 3. 根据需求修改小程序图标和标题。
+
+
 
 ## 如何使用
 
