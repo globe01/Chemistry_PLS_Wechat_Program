@@ -25,29 +25,19 @@ Chemistry PLS 微信小程序通过分析用户上传的图片，提取出图片
 
 小程序二维码如下：
 
-<img src="README.assets/image-20241118195428499.png" alt="image-20241118195428499" style="zoom:50%;" />
+<img src="README.assets/image-20241118195428499.png" alt="image-20241118195428499" style="zoom: 25%;" />
 
 ## 页面效果
 
-### 0 进入页面
+<div style="display: flex; justify-content: space-around; gap: 10px;">
+  <img src="README.assets/0.jpg" alt="0" style="width: 18%;" />
+  <img src="README.assets/1.jpg" alt="1" style="width: 18%;" />
+  <img src="README.assets/2.jpg" alt="2" style="width: 18%;" />
+  <img src="README.assets/3.jpg" alt="3" style="width: 18%;" />
+  <img src="README.assets/4.jpg" alt="4" style="width: 18%;" />
+</div>
 
-<img src="README.assets/0.jpg" alt="0" style="zoom: 15%;" />
-
-### 1 浓度检测页面
-
-<img src="README.assets/1.jpg" alt="1" style="zoom:15%;" />
-
-### 2 吸光度检测页面
-
-<img src="README.assets/2.jpg" alt="2" style="zoom:15%;" />
-
-### 3 历史记录页面
-
-<img src="README.assets/3.jpg" alt="3" style="zoom:15%;" />
-
-### 4 检测结果展示
-
-<img src="README.assets/4.jpg" alt="4" style="zoom:15%;" />
+从左至右依次为：**进入页面**、**浓度检测页面**、**吸光度检测页面**、**历史记录页面**、**检测结果展示**。
 
 
 
