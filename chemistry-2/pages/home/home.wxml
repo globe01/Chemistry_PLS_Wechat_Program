@@ -1,9 +1,33 @@
 <view class="container">
+  <!-- 背景图片 -->
   <image class="background" src="../../images/background.png" mode="aspectFill"></image>
-  <view class="overlay">
-    <view class="title">
-      <text class="title-text">欢迎使用比色数字化检测小程序</text>
+  
+  <!-- 动态粒子装饰 -->
+  <view class="particles">
+    <view class="particle p1"></view>
+    <view class="particle p2"></view>
+    <view class="particle p3"></view>
+    <view class="particle p4"></view>
+    <view class="particle p5"></view>
+    <view class="particle p6"></view>
+  </view>
+
+  <!-- 顶部标题区域 -->
+  <view class="top-content">
+    <view class="title-card">
+      <text class="title">比色数字化检测</text>
+      <text class="subtitle">Chemistry PLS · 智能分析</text>
     </view>
-    <button class="button" bindtap="goToPrediction">开始检测</button>
+  </view>
+
+  <!-- 底部按钮区域 -->
+  <view class="bottom-content">
+    <button class="start-btn" bindtap="goToPrediction">
+      <text>开始检测</text>
+      <view class="btn-arrow">→</view>
+    </button>
+    <view class="footer-info">
+      <text>基于偏最小二乘回归模型</text>
+    </view>
   </view>
 </view>

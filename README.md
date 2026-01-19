@@ -25,9 +25,11 @@ Chemistry PLS 微信小程序通过分析用户上传的图片，提取出图片
 
 小程序二维码如下：
 
-<img src="README.assets/image-20241118195428499.png" alt="image-20241118195428499" style="zoom: 25%;" />
+<img src="assets/小程序码-17649465992621.jpg" alt="小程序码" style="zoom:25%;" />
 
 ## 页面效果
+
+### 初版
 
 <div style="display: flex; justify-content: space-around; gap: 10px;">
   <img src="README.assets/0.jpg" alt="0" style="width: 18%;" />
@@ -41,6 +43,19 @@ Chemistry PLS 微信小程序通过分析用户上传的图片，提取出图片
 
 
 
+### 更新版
+
+<div style="display: flex; justify-content: space-around; gap: 10px; flex-wrap: nowrap; align-items: flex-start;">
+  <img src="assets/进入界面.png" alt="进入界面" style="width: 14%;" />
+  <img src="assets/历史记录.png" alt="历史记录" style="width: 14%;" />
+  <img src="assets/浓度检测页面0.png" alt="浓度检测页面0" style="width: 14%;" />
+  <img src="assets/浓度检测页面1.png" alt="浓度检测页面1" style="width: 14%;" />
+  <img src="assets/吸光度检测页面0.png" alt="吸光度检测页面0" style="width: 14%;" />
+  <img src="assets/吸光度检测页面1.png" alt="吸光度检测页面1" style="width: 14%;" />
+</div>
+
+
+
 ## 使用的技术
 
 - **前端**: 微信小程序
@@ -51,7 +66,7 @@ Chemistry PLS 微信小程序通过分析用户上传的图片，提取出图片
 
 
 
-## 安装和设置
+## 安装和设置（初版）
 
 ### 一、后端腾讯云轻量服务器设置
 
@@ -204,6 +219,320 @@ Chemistry PLS 微信小程序通过分析用户上传的图片，提取出图片
 
 
 
+## 安装和设置（优化版）
+
+> Ubuntu 22.04 LTS
+
+```bash
+# 更新系统
+sudo apt update && sudo apt upgrade -y
+
+# 安装必要软件
+sudo apt install -y python3 python3-pip python3-venv nginx libgl1 libglib2.0-0 curl
+
+# 创建 swap 分区（2GB内存偏小，加 swap 防止 OOM）
+fallocate -l 2G /swapfile
+chmod 600 /swapfile
+mkswap /swapfile
+swapon /swapfile
+echo '/swapfile none swap sw 0 0' >> /etc/fstab
+
+# 验证 swap
+free -h
+```
+
+```bash
+# 创建目录结构
+mkdir -p /home/lighthouse/app
+cd ~/app
+```
+
+### 一、配置 Python 环境
+
+```bash
+# 创建虚拟环境
+python3 -m venv venv
+
+# 激活虚拟环境
+source venv/bin/activate
+
+# 升级 pip
+pip install --upgrade pip -i https://mirrors.aliyun.com/pypi/simple/
+
+# 安装依赖（使用阿里云镜像加速）
+pip install -i https://mirrors.aliyun.com/pypi/simple/ \
+    flask==3.0.0 \
+    gunicorn==21.2.0 \
+    gevent==24.2.1 \
+    flask-cors==4.0.0 \
+    numpy==1.26.4 \
+    pandas==2.2.0 \
+    scikit-learn==1.5.0 \
+    joblib==1.3.2 \
+    opencv-python-headless==4.9.0.80 \
+    Pillow==10.2.0
+
+# 验证安装
+pip list
+```
+
+### 二、上传代码和模型文件
+
+```
+# 上传 app.py
+lighthouse@58.87.85.77:~/myenv/codes/
+
+# 上传蓝色模型文件
+lighthouse@58.87.85.77:~/myenv/codes/
+
+# 上传橙色模型文件
+lighthouse@58.87.85.77:~/myenv/codes/
+```
+
+### 三、创建必要目录并测试 Flask
+
+```bash
+# 在服务器上（lighthouse 用户）
+cd ~/myenv/codes
+
+# 创建上传和处理目录
+mkdir -p uploads processed
+
+# 激活虚拟环境
+source ~/myenv/venv/bin/activate
+
+# 测试 Flask 能否启动
+python3 app.py
+
+# 看到 "Running on http://127.0.0.1:5000" 就成功了
+# 按 Ctrl+C 停止
+```
+
+### 四、上传SSL证书
+
+```
+# 以 root 用户执行
+# 创建证书目录
+mkdir -p /etc/nginx/ssl
+
+# 上传证书文件到 /etc/nginx/ssl/
+# chemistryplsmodel.com_bundle.crt
+# chemistryplsmodel.com.key
+
+# 用 SFTP 上传后设置权限：
+chmod 600 /etc/nginx/ssl/*
+```
+
+
+
+### 五、配置nginx（优化）
+
+```bash
+# 备份原配置
+sudo cp /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
+
+# 删除默认站点
+sudo rm -f /etc/nginx/sites-enabled/default
+
+# 创建应用配置
+sudo vim /etc/nginx/conf.d/chemistry.conf
+```
+
+写入以下内容：
+
+```
+# 限流配置 - 防止恶意请求
+limit_req_zone $binary_remote_addr zone=upload_limit:10m rate=5r/s;
+
+# HTTP 重定向到 HTTPS
+server {
+    listen 80;
+    server_name chemistryplsmodel.com www.chemistryplsmodel.com;
+    return 301 https://$host$request_uri;
+}
+
+# HTTPS 主服务
+server {
+    listen 443 ssl http2;
+    server_name chemistryplsmodel.com www.chemistryplsmodel.com;
+
+    # SSL 证书配置
+    ssl_certificate /etc/nginx/ssl/chemistryplsmodel.com_bundle.crt;
+    ssl_certificate_key /etc/nginx/ssl/chemistryplsmodel.com.key;
+    ssl_session_timeout 1d;
+    ssl_session_cache shared:SSL:50m;
+    ssl_session_tickets off;
+    
+    # 现代SSL配置
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384;
+    ssl_prefer_server_ciphers off;
+
+    # 上传文件大小限制
+    client_max_body_size 20M;
+    client_body_buffer_size 5M;
+    client_body_timeout 120s;
+    client_header_timeout 60s;
+
+    # 连接优化
+    keepalive_timeout 75;
+    keepalive_requests 100;
+
+    # 健康检查接口
+    location /health {
+        access_log off;
+        return 200 "OK";
+    }
+
+    # API 路由
+    location / {
+        limit_req zone=upload_limit burst=10 nodelay;
+        
+        proxy_pass http://127.0.0.1:5000;
+        proxy_http_version 1.1;
+        
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Connection "";
+
+        proxy_connect_timeout 60s;
+        proxy_send_timeout 120s;
+        proxy_read_timeout 120s;
+
+        proxy_buffering on;
+        proxy_buffer_size 64k;
+        proxy_buffers 8 128k;
+        proxy_busy_buffers_size 256k;
+        
+        proxy_next_upstream error timeout http_502 http_503;
+        proxy_next_upstream_tries 2;
+    }
+}
+```
+
+保存后（先点击Esc键，输入:冒号，然后输入wq），测试并重启：
+
+```bash
+# 测试配置
+sudo nginx -t
+
+# 重启 Nginx
+sudo systemctl restart nginx
+sudo systemctl enable nginx
+
+# 检查状态
+sudo systemctl status nginx
+```
+
+### 六、配置 Gunicorn 服务
+
+```bash
+sudo vim /etc/systemd/system/chemistry.service
+```
+
+写入以下内容：
+
+```bash
+[Unit]
+Description=Chemistry PLS Flask Application
+After=network.target
+Wants=network-online.target
+
+[Service]
+Type=notify
+User=lighthouse
+Group=lighthouse
+WorkingDirectory=/home/lighthouse/app/codes
+Environment="PATH=/home/lighthouse/app/venv/bin"
+Environment="PYTHONUNBUFFERED=1"
+
+ExecStart=/home/lighthouse/app/venv/bin/gunicorn \
+    --workers 2 \
+    --worker-class gevent \
+    --worker-connections 500 \
+    --bind 127.0.0.1:5000 \
+    --timeout 120 \
+    --graceful-timeout 30 \
+    --keep-alive 5 \
+    --max-requests 1000 \
+    --max-requests-jitter 50 \
+    --access-logfile /home/lighthouse/app/logs/access.log \
+    --error-logfile /home/lighthouse/app/logs/error.log \
+    --log-level info \
+    --capture-output \
+    app:app
+
+Restart=always
+RestartSec=5
+StartLimitIntervalSec=60
+StartLimitBurst=3
+
+MemoryMax=1G
+MemoryHigh=800M
+
+[Install]
+WantedBy=multi-user.target
+```
+
+保存后启动服务：
+
+```bash
+# 创建日志目录（这个不需要 sudo，因为是在 home 目录）
+mkdir -p ~/app/logs
+
+# 重载 systemd
+sudo systemctl daemon-reload
+
+# 启动并设置开机自启
+sudo systemctl enable chemistry
+sudo systemctl start chemistry
+
+# 检查状态
+sudo systemctl status chemistry
+```
+
+### 七、配置日志轮转
+
+```bash
+sudo vim /etc/logrotate.d/chemistry
+```
+
+写入以下内容：
+
+```
+/home/lighthouse/app/logs/*.log {
+    daily
+    missingok
+    rotate 7
+    compress
+    delaycompress
+    notifempty
+    copytruncate
+}
+```
+
+### 八、验证部署
+
+```bash
+# 检查服务状态
+sudo systemctl status chemistry
+sudo systemctl status nginx
+
+# 本地测试
+curl http://127.0.0.1:5000/
+
+# HTTPS 测试
+curl -I https://chemistryplsmodel.com/
+
+# 查看日志
+tail -f ~/app/logs/error.log
+sudo tail -f /var/log/nginx/error.log
+```
+
+
+
 ## 如何使用
 
 1. **上传图片**: 用户打开小程序之后，可以当场拍摄或者选择已有的本地图片进行上传。
@@ -214,7 +543,8 @@ Chemistry PLS 微信小程序通过分析用户上传的图片，提取出图片
 
 - 优化模型性能。
 - 增加更多化学试剂的支持。
-- 增强用户界面体验。
+- 增强用户界面体验。（优化）
+- 优化响应速度。（优化）
 
 ## 许可证
 

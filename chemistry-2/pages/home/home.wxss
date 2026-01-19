@@ -1,69 +1,174 @@
+/* 容器 */
 .container {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  min-height: 100vh;
   position: relative;
+  overflow: hidden;
 }
 
+/* 背景图片 */
 .background {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -1;
+  z-index: 0;
 }
 
-.overlay {
-  background-color: rgba(0, 0, 0, 0.6); /* 更深的半透明背景层 */
-  padding: 20px;
-  border-radius: 15px;
+/* 动态粒子 */
+.particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  animation: float-up linear infinite;
+}
+
+.p1 { width: 6rpx; height: 6rpx; left: 8%; bottom: -20rpx; animation-duration: 12s; animation-delay: 0s; }
+.p2 { width: 4rpx; height: 4rpx; left: 22%; bottom: -20rpx; animation-duration: 15s; animation-delay: 2s; }
+.p3 { width: 8rpx; height: 8rpx; left: 38%; bottom: -20rpx; animation-duration: 13s; animation-delay: 4s; }
+.p4 { width: 5rpx; height: 5rpx; left: 58%; bottom: -20rpx; animation-duration: 16s; animation-delay: 1s; }
+.p5 { width: 7rpx; height: 7rpx; left: 75%; bottom: -20rpx; animation-duration: 14s; animation-delay: 3s; }
+.p6 { width: 4rpx; height: 4rpx; left: 88%; bottom: -20rpx; animation-duration: 17s; animation-delay: 5s; }
+
+@keyframes float-up {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  5% {
+    opacity: 0.6;
+  }
+  95% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(30rpx);
+    opacity: 0;
+  }
+}
+
+/* 顶部内容区域 */
+.top-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  padding: 320rpx 48rpx 80rpx;
+  background: linear-gradient(to bottom, rgba(15, 23, 42, 0.85) 0%, rgba(15, 23, 42, 0.5) 70%, transparent 100%);
+}
+
+/* 标题卡片 */
+.title-card {
   text-align: center;
 }
 
 .title {
-  margin-bottom: 30px;
+  display: block;
+  font-size: 52rpx;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 4rpx;
+  margin-bottom: 16rpx;
+  text-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.3);
 }
 
-.title-text {
-  font-size: 30px;
-  font-weight: bold;
-  color: white;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* 添加阴影效果 */
+.subtitle {
+  display: block;
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 4rpx;
 }
 
-.button {
-  font-size: 20px;
-  padding: 15px 30px;
-  background: linear-gradient(135deg, #667eea, #764ba2); /* 蓝紫色渐变 */
-  color: white;
+/* 底部内容区域 */
+.bottom-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  padding: 60rpx 48rpx;
+  padding-bottom: calc(90rpx + env(safe-area-inset-bottom));
+  background: linear-gradient(to top, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.6) 60%, transparent 100%);
+}
+
+/* 开始按钮 */
+.start-btn {
+  width: 100%;
+  height: 100rpx;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   border: none;
-  border-radius: 30px; /* 圆角按钮 */
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* 按钮阴影 */
+  border-radius: 50rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 12rpx 40rpx rgba(102, 126, 234, 0.45);
   position: relative;
   overflow: hidden;
-  transition: all 0.3s ease;
+  margin-bottom: 28rpx;
 }
 
-.button::before {
+.start-btn::before {
   content: '';
   position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: rgba(255, 255, 255, 0.2); /* 光泽效果 */
-  transform: rotate(45deg);
-  transition: all 0.5s ease;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+  animation: shimmer 2.5s infinite;
 }
 
-.button:hover::before {
-  top: -20%;
-  left: -20%;
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
 }
 
-.button:active {
-  transform: scale(0.95); /* 按下时缩小 */
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* 减少阴影 */
+.start-btn::after {
+  border: none;
+}
+
+.start-btn:active {
+  transform: scale(0.97);
+  box-shadow: 0 6rpx 24rpx rgba(102, 126, 234, 0.45);
+}
+
+.start-btn text {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 6rpx;
+}
+
+.btn-arrow {
+  margin-left: 16rpx;
+  font-size: 40rpx;
+  color: #ffffff;
+  animation: arrow-move 1.5s ease-in-out infinite;
+}
+
+@keyframes arrow-move {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(10rpx); }
+}
+
+/* 底部信息 */
+.footer-info {
+  text-align: center;
+}
+
+.footer-info text {
+  font-size: 22rpx;
+  color: rgba(255, 255, 255, 0.35);
+  letter-spacing: 2rpx;
 }

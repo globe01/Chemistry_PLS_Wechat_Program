@@ -1,12 +1,56 @@
 <scroll-view class="scrollarea" scroll-y type="list">
   <view class="container">
-    <view class="title">
-      <text class="title-text">历史记录</text>
+    <!-- 顶部标题 -->
+    <view class="header">
+      <view class="logo">
+        <view class="logo-inner"></view>
+      </view>
+      <text class="title">历史记录</text>
+      <text class="subtitle" wx:if="{{history.length > 0}}">共 {{history.length}} 条记录</text>
+      <text class="subtitle" wx:else>暂无记录</text>
     </view>
-    <view wx:for="{{history}}" wx:key="index" class="card record">
-      <text class="label">浓度: {{item.concentration}}</text>
-      <text class="label">RGB值: {{item.rgbValues}}</text>
-      <text class="label">检测吸光度: {{item.absorbance}}</text>
+
+    <!-- 清空按钮 -->
+    <view class="action-bar" wx:if="{{history.length > 0}}">
+      <view class="clear-btn" bindtap="clearHistory">
+        <text>清空记录</text>
+      </view>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="empty-state" wx:if="{{history.length === 0}}">
+      <view class="empty-icon">
+        <view class="empty-circle"></view>
+      </view>
+      <text class="empty-text">检测结果将保存在这里</text>
+    </view>
+
+    <!-- 记录列表 -->
+    <view class="record-list" wx:if="{{history.length > 0}}">
+      <view class="card record-card" wx:for="{{history}}" wx:key="index">
+        <view class="record-header">
+          <view class="record-type-wrapper">
+            <view class="record-dot {{item.colorType}}"></view>
+            <text class="record-type">{{item.type === 'both' ? '综合检测' : (item.type === 'concentration' ? '浓度检测' : '吸光度检测')}}</text>
+          </view>
+          <view class="type-tag {{item.colorType}}">{{item.colorType === 'blue' ? '亚甲基蓝' : '甲基橙'}}</view>
+        </view>
+        <view class="record-body">
+          <!-- 同时显示浓度和吸光度 -->
+          <view class="record-row" wx:if="{{item.concentration}}">
+            <text class="record-label">浓度</text>
+            <text class="record-value">{{item.concentration}}</text>
+          </view>
+          <view class="record-row" wx:if="{{item.absorbance}}">
+            <text class="record-label">吸光度</text>
+            <text class="record-value">{{item.absorbance}}</text>
+          </view>
+        </view>
+        <view class="record-footer">
+          <text class="record-rgb">{{item.rgbValues}}</text>
+          <text class="record-time" wx:if="{{item.timestamp}}">{{item.timestamp}}</text>
+        </view>
+      </view>
     </view>
   </view>
 </scroll-view>

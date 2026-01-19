@@ -14,6 +14,20 @@ App({
     })
   },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    // 共享检测结果
+    sharedResult: null
+    // 结构: {
+    //   imagePath: '',
+    //   processedImagePath: '',
+    //   concentration: '',
+    //   absorbance: '',
+    //   rgbValues: '',
+    //   rgbRed: 0,
+    //   rgbGreen: 0,
+    //   rgbBlue: 0,
+    //   colorType: '',
+    //   timestamp: ''
+    // }
   }
 })

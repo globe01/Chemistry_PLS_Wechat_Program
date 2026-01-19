@@ -151,21 +151,26 @@ def upload_file():
         X = np.array([[rgb['red'], rgb['green'], rgb['blue']]])
         X_scaled = scaler_X.transform(X)
 
-        # 进行预测
-        model_type = request.form.get('model_type')
-        if model_type == 'absorbance':
-            y_pred_scaled = pls_absorbance_model.predict(X_scaled)
-            y_pred = scaler_y_absorbance.inverse_transform(y_pred_scaled.reshape(-1, 1)).ravel()[0]
-            y_pred = max(0, y_pred)
-            print("Predicted absorbance:", y_pred)
-            return jsonify({'rgb': rgb, 'absorbance': y_pred, 'processed_image': processed_image_path})
+        # 同时预测浓度和吸光度
+        # 预测吸光度
+        y_absorbance_scaled = pls_absorbance_model.predict(X_scaled)
+        absorbance = scaler_y_absorbance.inverse_transform(y_absorbance_scaled.reshape(-1, 1)).ravel()[0]
+        absorbance = max(0, absorbance)
+        print("Predicted absorbance:", absorbance)
 
-        elif model_type == 'concentration':
-            y_pred_scaled = pls_concentration_model.predict(X_scaled)
-            y_pred = scaler_y_concentration.inverse_transform(y_pred_scaled.reshape(-1, 1)).ravel()[0]
-            y_pred = max(0, y_pred)
-            print("Predicted concentration:", y_pred)
-            return jsonify({'rgb': rgb, 'concentration': y_pred, 'processed_image': processed_image_path})
+        # 预测浓度
+        y_concentration_scaled = pls_concentration_model.predict(X_scaled)
+        concentration = scaler_y_concentration.inverse_transform(y_concentration_scaled.reshape(-1, 1)).ravel()[0]
+        concentration = max(0, concentration)
+        print("Predicted concentration:", concentration)
+
+        # 返回所有数据
+        return jsonify({
+            'rgb': rgb,
+            'absorbance': absorbance,
+            'concentration': concentration,
+            'processed_image': processed_image_path
+        })
 
     else:
         print("File type not allowed")
