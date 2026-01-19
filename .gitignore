@@ -1,0 +1,30 @@
+# 微信小程序敏感配置文件
+chemistry-2/project.config.json
+chemistry-2/project.private.config.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+ENV/
+
+# 上传文件夹
+back-end/codes/uploads/
+back-end/codes/processed/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 日志
+*.log
+nohup.out
